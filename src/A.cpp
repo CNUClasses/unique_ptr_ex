@@ -7,11 +7,10 @@
 
 #include "A.h"
 
-A::A():i(new int(0)) {}
+A::A(int i):i(new int(i)) {}
 
 A::~A() {
-    if(i) {
+    if(i)
        delete i;
-    }
  }
 

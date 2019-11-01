@@ -9,8 +9,9 @@
 #define A_H_
 class A {
 public:
-   A();
+   A(int i);
    ~A();
+   void set(int i);
 
 private:
    int* i;

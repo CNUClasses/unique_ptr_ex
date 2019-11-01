@@ -12,7 +12,10 @@
 //notice how much less code needed when using unique pointers
 class B {
 public:
-	B();
+	B(int i);
+	~B(){}
+	 void set(int i);	//rubbish getters and setters for demo purposes
+	 int get();
 private:
 	std::unique_ptr<int> i;
 };

@@ -7,5 +7,13 @@
 
 #include "B.h"
 
-B::B():i(new int(0)) {}
+B::B(int i):i(new int(i)) {}
+
+void B::set(int i){
+	this->i.reset(new int(i));
+}
+
+int B::get(){
+	return *i;
+}
 
