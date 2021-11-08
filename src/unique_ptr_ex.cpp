@@ -18,24 +18,52 @@ struct MyClass {
    MyClass(const char* s){}
    void methodA(){};
 };
+void someMethod_simple(MyClass* m){};
+
+
+void test_simple() {
+   unique_ptr<MyClass> ptr1(new MyClass("obj1"));
+
+   // can use -> (and *) on the unique_ptr just like with a normal pointer
+   ptr1->methodA(); 
+
+   // to get a plain pointer from the unique_ptr, we use the get() method
+   someMethod_simple(ptr1.get()); 
+
+   // use std::move to transfer ownership to ptr2 - ptr1 now holds no pointer
+   unique_ptr<MyClass> ptr2(std::move(ptr1));
+
+   // assign a new pointer to ptr1
+   ptr1.reset(new MyClass("obj2"));
+
+   // assign a new pointer to ptr2 - "obj1" will now automatically be deleted
+   ptr2.reset(new MyClass("obj3"));
+
+   // set ptr1 to contain nothing - "obj2" will now automatically be deleted
+   ptr1.reset();
+
+   // "obj3" will automatically deleted at the end of this function, as ptr2 goes out of scope
+}
+
 
 //what if we want a plain pointer?
-void someMethod(B* m){}
-
-void test() {
+void someMethod_classes(B* m){}
+void test_classes() {
+	unique_ptr<MyClass> ptrmc(new MyClass("obj1"));
+	
    unique_ptr<B> ptr1(new B(1));
 
    // can use -> (and *) on the unique_ptr just like with a normal pointer
    ptr1->set(2);
 
    // to get a plain pointer from the unique_ptr, we use the get() method
-   someMethod(ptr1.get());
+   someMethod_classes(ptr1.get());
    int j = ptr1.get()->get();
 
    // use std::move to transfer ownership to ptr2 - ptr1 now holds no pointer
    unique_ptr<B> ptr2 = std::move(ptr1);
 
-//   ptr1->set(3);															//crash already moved
+//   ptr1->set(3);							//crash already moved
 //   unique_ptr<B> ptr3(std::move(ptr1));	//crash already moved
 
    // assign a new pointer to ptr1
@@ -57,7 +85,8 @@ void func_by_value(B b){
 }
 
 int main() {
-	test();
+	test_simple();
+	test_classes();
 
 	A a(2);	//must define destructor that cleans up memory
 //	A a2 = a;	//cannot do it (private assignment operator)
