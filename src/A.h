@@ -18,6 +18,7 @@ private:
     // we need to explicitly disable value-copying, as it's not safe!
     A(const A&);
     A& operator=(const A&);
+	void clear();
 };
 
 #endif /* A_H_ */

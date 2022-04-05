@@ -36,7 +36,7 @@ void test_simple() {
    // assign a new pointer to ptr1
    ptr1.reset(new MyClass("obj2"));
 
-   // assign a new pointer to ptr2 - "obj1" will now automatically be deleted
+   // assign a new pointer to ptr2 - orig pointer will now automatically be deleted
    ptr2.reset(new MyClass("obj3"));
 
    // set ptr1 to contain nothing - "obj2" will now automatically be deleted
@@ -97,5 +97,4 @@ int main() {
 //	B b2 = b;	//cannot do it, deleted assignment operator (means cannot use it)
 //	B b1(b);	//cannot do it, deleted copy constructor, (means cannot use it)
 //	func_by_value(b);	//cannot do it, deleted copy constructor, (means cannot use it)
-
 }
